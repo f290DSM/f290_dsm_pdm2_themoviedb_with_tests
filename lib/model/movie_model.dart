@@ -39,6 +39,10 @@ class MovieModel {
     required this.voteCount,
   });
 
+  String getPostPathUrl() {
+    return 'http://image.tmdb.org/t/p/w500/$posterPath';
+  }
+
   factory MovieModel.fromJson(Map<String, dynamic> json) =>
       _$MovieModelFromJson(json);
 
