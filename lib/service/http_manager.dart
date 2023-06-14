@@ -5,31 +5,31 @@ import 'package:dio/dio.dart';
 
 class HttpManager {
   final Dio dio;
+  final Options? options;
 
-  HttpManager({required this.dio});
+  HttpManager({this.options, required this.dio});
 
   Future<Map<String, dynamic>> sendRequest({
     required String url,
-    required String method,
-    Map? headers,
+    Options? options,
     Map? body,
   }) async {
-    final defaulHeaders = headers?.cast<String, String>() ?? {};
+    // final defaulHeaders = options?.headers?.cast<String, String>() ?? {};
     try {
       Response response = await dio.request(
         url,
-        options: Options(method: method, headers: defaulHeaders),
+        options: options,
         data: body,
       );
 
       return response.data;
     } on DioException catch (dioError) {
       log('''Falha ao processar requisição. 
-        Tipo: $method. Endpoint: $url.''', error: dioError.message);
+        Tipo: ${options?.method}. Endpoint: $url.''', error: dioError.message);
       return dioError.response?.data ?? {};
     } catch (error) {
       log('''Falha ao executar requisição. 
-        Tipo: $method. Endpoint: $url.''', error: error.toString());
+        Tipo: ${options?.method}. Endpoint: $url.''', error: error.toString());
       return {};
     }
   }

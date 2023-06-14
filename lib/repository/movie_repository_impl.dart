@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dio/dio.dart';
 import 'package:f290_dsm_pdm2_themoviedb_with_tests/model/movie_model.dart';
 import 'package:f290_dsm_pdm2_themoviedb_with_tests/repository/movie_repository.dart';
 import 'package:f290_dsm_pdm2_themoviedb_with_tests/service/http_manager.dart';
@@ -21,8 +22,7 @@ class MovieRepositoryImpl extends MovieRepository {
 
     var response = await httpManager.sendRequest(
       url: url,
-      method: HttpMethod.post,
-      headers: headers,
+      options: Options(method: HttpMethod.post, headers: headers),
       body: {'value': rate},
     );
 
@@ -38,7 +38,7 @@ class MovieRepositoryImpl extends MovieRepository {
 
     var response = await httpManager.sendRequest(
       url: url,
-      method: HttpMethod.get,
+      options: Options(method: HttpMethod.get),
     );
 
     if (response.containsKey('results')) {
