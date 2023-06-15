@@ -83,6 +83,30 @@ void main() {
     expect(true, response.containsKey('results'));
   });
 
+  test('Deve registrar log ao lançar exceções tipadas.', () async {
+    when(mockDio.request(any, options: anyNamed('options')))
+        .thenThrow(DioException(message: 'Error message', requestOptions: RequestOptions()));
+    final url = faker.internet.httpUrl();
+    final options = Options(method: HttpMethod.get);
+
+    var response = await sut.sendRequest(url: url, options: options);
+
+    verify(mockDio.request(url, options: options));
+    expect(response.isEmpty, true);
+  });
+
+  test('Deve registrar log ao lançar exceções.', () async {
+    when(mockDio.request(any, options: anyNamed('options')))
+        .thenThrow(DioException);
+    final url = faker.internet.httpUrl();
+    final options = Options(method: HttpMethod.get);
+
+    var response = await sut.sendRequest(url: url, options: options);
+
+    verify(mockDio.request(url, options: options));
+    expect(response.isEmpty, true);
+  });
+
   test('Deve gerar com sucesso cabeçalho de autenticação http básica.', () {
     final header = {'Authorization': 'Basic ZXNkcmFzOnNlY3JldA=='};
     var simpleAuthHeader = sut.getSimpleAuthHeader('esdras', 'secret');

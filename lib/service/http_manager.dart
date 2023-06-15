@@ -14,7 +14,6 @@ class HttpManager {
     Options? options,
     Map? body,
   }) async {
-    // final defaulHeaders = options?.headers?.cast<String, String>() ?? {};
     try {
       Response response = await dio.request(
         url,
