@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:f290_dsm_pdm2_themoviedb_with_tests/pages/guiame_page.dart';
+import 'package:f290_dsm_pdm2_themoviedb_with_tests/pages/loguin_page.dart';
 import 'package:f290_dsm_pdm2_themoviedb_with_tests/repository/movie_repository_impl.dart';
 import 'package:f290_dsm_pdm2_themoviedb_with_tests/service/http_manager.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class App extends StatelessWidget {
           primaryContainer: const Color.fromRGBO(27, 210, 175, 1.0),
         ),
       ),
-      home: const MyHomePage(title: 'TheMovieDB'),
+      home: const EventosArtefatos(),
     );
   }
 }
